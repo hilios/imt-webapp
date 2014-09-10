@@ -15,7 +15,7 @@ class DevicesHandler(webapp2.RequestHandler):
         self.response.write(json.dumps(devices))
 
     def post(self):
-        'Cria um novo device'
+        'Cria um novo device, parametros: nome, obs'
         device = models.Devices(
             nome=self.request.params.get('nome'),
             obs=self.request.params.get('obs')
@@ -25,6 +25,7 @@ class DevicesHandler(webapp2.RequestHandler):
         self.response.status = 201
 
     def put(self):
+        'Atualiza um device, parametros: id, nome, obs'
         pk = self.request.params.get('id')
         device = models.Devices.get_by_id(pk)
 
@@ -38,6 +39,7 @@ class DevicesHandler(webapp2.RequestHandler):
         self.response.status = 204
 
     def delete(self):
+        'Deleta um device'
         pk = self.request.params.get('id')
         device = models.Devices.get_by_id(pk)
 
@@ -49,8 +51,9 @@ class DevicesHandler(webapp2.RequestHandler):
         self.response.status = 204
 
 
-class DeviceMedidasHandler(webapp2.RequestHandler):
+class MedidasDeviceHandler(webapp2.RequestHandler):
     def get(self, device_id):
+        'Retorna um device com todas as medidas coletadas'
         device = models.Devices.get_by_id(device_id)
 
         if not device:
@@ -63,6 +66,9 @@ class DeviceMedidasHandler(webapp2.RequestHandler):
 
 
     def post(self, device_id):
+        '''Cria uma nova medida para um device, parametros: temperatura,
+        humidade, lat, lng
+        '''
         device = models.Devices.get_by_id(device_id)
 
         if not device:

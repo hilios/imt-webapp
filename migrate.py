@@ -40,10 +40,10 @@ with models.dbconnection() as conn:
         id          INTEGER PRIMARY KEY AUTOINCREMENT,
         device_id   INT NOT NULL,
         recebido_em INT NOT NULL,
-        temperatura INT NOT NULL,
-        humidade    INT NOT NULL,
-        lat         INT,
-        lng         INT,
+        temperatura REAL NOT NULL,
+        humidade    REAL NOT NULL,
+        lat         REAL,
+        lng         REAL,
 
         FOREIGN KEY(device_id) REFERENCES devices(id)  ON DELETE CASCADE
     );

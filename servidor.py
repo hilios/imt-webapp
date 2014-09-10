@@ -1,6 +1,6 @@
 import webapp2
 
-from api import DevicesHandler, DeviceMedidasHandler
+from api import DevicesHandler, MedidasDeviceHandler
 from static import StaticHandler
 
 
@@ -13,7 +13,7 @@ ROUTES = [
     ('/', HelloWorld),
     ('/static/(.+)', StaticHandler),
     ('/api/devices', DevicesHandler),
-    ('/api/devices/(.+)', DeviceMedidasHandler),
+    ('/api/devices/(.+)', MedidasDeviceHandler),
 ]
 
 
