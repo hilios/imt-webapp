@@ -1,7 +1,7 @@
 import webapp2
 
-from api import DevicesHandler, DeviceDataHandler
-from helpers.static import StaticHandler
+from api import DevicesHandler, DeviceMeasuresHandler
+from static import StaticHandler
 
 
 class HelloWorld(webapp2.RequestHandler):
@@ -13,7 +13,7 @@ ROUTES = [
     ('/', HelloWorld),
     ('/static/(.+)', StaticHandler),
     ('/api/devices', DevicesHandler),
-    ('/api/devices/(.+)', DeviceDataHandler),
+    ('/api/devices/(.+)', DeviceMeasuresHandler),
 ]
 
 
