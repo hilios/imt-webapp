@@ -1,7 +1,7 @@
 import webapp2
 
 from api import DevicesHandler, DeviceDataHandler
-from lib.static import StaticHandler
+from helpers.static import StaticHandler
 
 
 class HelloWorld(webapp2.RequestHandler):

@@ -28,7 +28,7 @@ if os.path.exists(db.DB_PATH):
         os.abort()
 
 # Start migration
-with db.Connection() as conn:
+with db.connection() as conn:
     print 'Criando tabelas...'
     # Create all tables
     conn.executescript("""CREATE TABLE devices (
@@ -57,7 +57,7 @@ print ''
 fixtures = raw_input('Quer incluir dados fictícios para teste? [Sn] ')
 
 if re.match(r'S', fixtures, re.I):
-    with db.Connection() as conn:
+    with db.connection() as conn:
         print 'Criando um `device`...'
         conn.execute("INSERT INTO devices (nome) VALUES ('DEF-1234')")
 

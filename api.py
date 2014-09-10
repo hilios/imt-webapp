@@ -1,7 +1,7 @@
 import json
 import webapp2
 
-from lib import db
+from helpers import db
 from datetime import datetime
 
 
