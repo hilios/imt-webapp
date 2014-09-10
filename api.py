@@ -16,26 +16,30 @@ class DevicesHandler(webapp2.RequestHandler):
 
     def post(self):
         'Cria um novo device'
-        device = models.Devices(nome=self.request.params.get('nome'))
+        device = models.Devices(
+            nome=self.request.params.get('nome'),
+            obs=self.request.params.get('obs')
+            )
         device.save()
 
         self.response.status = 201
 
     def put(self):
-        id = self.request.params.get('id')
-        device = models.Devices.get_by_id(id)
+        pk = self.request.params.get('id')
+        device = models.Devices.get_by_id(pk)
 
         if not device:
             self.abort(404)
 
         device['nome'] = self.request.params.get('nome')
+        device['obs'] = self.request.params.get('obs')
         device.save()
 
         self.response.status = 204
 
     def delete(self):
-        id = self.request.params.get('id')
-        device = models.Devices.get_by_id(id)
+        pk = self.request.params.get('id')
+        device = models.Devices.get_by_id(pk)
 
         if not device:
             self.abort(404)
@@ -45,17 +49,17 @@ class DevicesHandler(webapp2.RequestHandler):
         self.response.status = 204
 
 
-class DeviceMeasuresHandler(webapp2.RequestHandler):
+class DeviceMedidasHandler(webapp2.RequestHandler):
     def get(self, device_id):
         device = models.Devices.get_by_id(device_id)
 
         if not device:
             self.abort(404)
 
-        measures = device.measures()
+        device['medidas'] = device.medidas()
 
         self.response.content_type = 'application/json'
-        self.response.write(json.dumps(measures))
+        self.response.write(json.dumps(device))
 
 
     def post(self, device_id):
@@ -64,7 +68,7 @@ class DeviceMeasuresHandler(webapp2.RequestHandler):
         if not device:
             self.abort(404)
 
-        measure = models.Measures(
+        medida = models.Medidas(
             device_id=device_id,
             temperatura=self.request.params.get('temperatura'),
             humidade=self.request.params.get('humidade'),
@@ -72,6 +76,6 @@ class DeviceMeasuresHandler(webapp2.RequestHandler):
             lng=self.request.params.get('lng')
         )
 
-        measure.save()
+        medida.save()
 
         self.response.status = 204

@@ -53,9 +53,6 @@ class Model(dict):
 
     @classmethod
     def get_by_id(cls, pk):
-        if not pk:
-            pk = 0
-
         with dbconnection() as conn:
             query = conn.execute('SELECT * FROM {table} WHERE {pk}=?'\
                 .format(table=cls.table, pk=cls.pk), (pk,))
@@ -122,17 +119,17 @@ class Model(dict):
 class Devices(Model):
     table = 'devices'
 
-    def measures(self):
+    def medidas(self):
         pk = self.get('id', 0)
         if pk != None:
-            return Measures.get_by(device_id=pk)
+            return Medidas.get_by(device_id=pk)
         else:
             return []
 
 
-class Measures(Model):
-    table = 'measures'
+class Medidas(Model):
+    table = 'medidas'
 
     def _insert(self):
         self['recebido_em'] = datetime.utcnow()
-        super(Measures, self)._insert()
+        return super(Medidas, self)._insert()

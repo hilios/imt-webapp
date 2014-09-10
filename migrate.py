@@ -32,10 +32,11 @@ with models.dbconnection() as conn:
     # Create all tables
     conn.executescript("""CREATE TABLE devices (
         id      INTEGER PRIMARY KEY AUTOINCREMENT,
-        nome    TEXT
+        nome    TEXT,
+        obs     TEXT
     );
 
-    CREATE TABLE measures (
+    CREATE TABLE medidas (
         id          INTEGER PRIMARY KEY AUTOINCREMENT,
         device_id   INT NOT NULL,
         recebido_em INT NOT NULL,
@@ -47,11 +48,11 @@ with models.dbconnection() as conn:
         FOREIGN KEY(device_id) REFERENCES devices(id)  ON DELETE CASCADE
     );
 
-    CREATE INDEX measures__device_id ON measures(device_id);
+    CREATE INDEX medidas__device_id ON medidas(device_id);
     """)
 
     print '\t> `devices`'
-    print '\t> `measures`'
+    print '\t> `medidas`'
 
 print ''
 fixtures = raw_input('Quer incluir dados fictícios para teste? [Sn] ')
@@ -86,7 +87,7 @@ if re.match(r'S', fixtures, re.I):
         lat = -23.648241 + random(-1, 1)
         lng = -46.573678 + random(-1, 1)
 
-        measure = models.Measures(
+        medida = models.Medidas(
             device_id=device.get('id'),
             temperatura=t,
             humidade=h,
@@ -94,7 +95,7 @@ if re.match(r'S', fixtures, re.I):
             lat=lat,
             lng=lng
         )
-        measure.save()
+        medida.save()
 
         print (''
             + '\t'
@@ -105,11 +106,11 @@ if re.match(r'S', fixtures, re.I):
             + '| {gis:<15} '
             + '|'
         ).format(
-            id=measure['id'],
-            recebido_em=measure['recebido_em'],
-            humidade='{humidade:0.1%}'.format(**measure),
-            temperatura='{temperatura:+.2f}ºC'.format(**measure),
-            gis='@{lat:+.4f},{lng:+.4f}'.format(**measure)
+            id=medida['id'],
+            recebido_em=medida['recebido_em'],
+            humidade='{humidade:0.1%}'.format(**medida),
+            temperatura='{temperatura:+.2f}ºC'.format(**medida),
+            gis='@{lat:+.4f},{lng:+.4f}'.format(**medida)
         )
 
     print '\t+{:-^80}+'.format('')
