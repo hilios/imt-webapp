@@ -121,10 +121,7 @@ class Devices(Model):
 
     def medidas(self):
         pk = self.get('id', 0)
-        if pk != None:
-            return Medidas.get_by(device_id=pk)
-        else:
-            return []
+        return Medidas.get_by(device_id=pk)
 
 
 class Medidas(Model):

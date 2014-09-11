@@ -3,10 +3,7 @@ import webapp2
 import sqlite3
 import models
 
-# from datetime import datetime
-
 class DevicesHandler(webapp2.RequestHandler):
-
     def get(self):
         'Retorna todos os devices registrados'
         devices = models.Devices.get_all()
@@ -81,7 +78,6 @@ class MedidasDeviceHandler(webapp2.RequestHandler):
             lat=self.request.params.get('lat'),
             lng=self.request.params.get('lng')
         )
-
         medida.save()
 
         self.response.status = 204
