@@ -77,8 +77,7 @@ if re.match(r'S', fixtures, re.I):
         + '\t+{:-^80}+\n'
         + '\t| {:^5} | {:^18} | {:^15} | {:^10} | {:^20} |\n'
         + '\t+{:-^80}+'
-    ).format('', 'id', 'Data', 'Temperatura',
-            'Humidade', 'Posição', '')
+    ).format('', 'id', 'Data', 'Temperatura', 'Humidade', 'Posição', '')
 
     for i in range(15):
         t = random(-2, 5)
