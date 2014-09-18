@@ -11,6 +11,7 @@ Código do curso de Backend HTTP com python ministrado no Instituto Mauá de Tec
 $ pip install paste
 $ pip install webob
 $ pip install webapp2
+$ pip install jinja2
 ```
 
 ### Iniciando o Banco de dados

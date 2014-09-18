@@ -1,0 +1,56 @@
+html,
+body {
+  margin:0;
+  padding:0;
+  height:100%;
+}
+
+body {
+  background-color: #D4D4D4;
+  color: #333333;
+}
+
+header {
+  background: #FFFFFF;
+  border-bottom: 5px solid #EEEEEE;
+}
+
+header .pure-menu {
+  line-height: 100px;
+}
+
+header .pure-menu a {
+  line-height: 100px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+header .brand {
+  font-weight: bold;
+}
+
+.wrapper {
+  min-height:100%;
+  position:relative;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 1000px;
+}
+
+footer {
+  font-size: small;
+
+  margin-top: 25px;
+  width: 100%;
+
+  position:absolute;
+  bottom:0;
+  left:0;
+}
+
+footer .container {
+  border-top: 1px solid #BBB;
+  padding: 25px 0;
+}
