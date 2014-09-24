@@ -6,51 +6,123 @@ body {
 }
 
 body {
-  background-color: #D4D4D4;
+  font-family: 'Roboto', Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  font-size: 16px;
   color: #333333;
 }
 
-header {
-  background: #FFFFFF;
-  border-bottom: 5px solid #EEEEEE;
-}
-
-header .pure-menu {
-  line-height: 100px;
-}
-
-header .pure-menu a {
-  line-height: 100px;
-  padding-top: 0;
-  padding-bottom: 0;
-}
-
-header .brand {
-  font-weight: bold;
+h1, h2, h3 {
+  font-weight: 300;
 }
 
 .wrapper {
   min-height:100%;
+  min-width: 480px;
   position:relative;
 }
 
 .container {
-  margin: 0 auto;
   max-width: 1000px;
+  margin: 0;
+  padding: 16px 32px;
+}
+
+header {
+  background: #03A9F4;
+  color: white;
+  box-shadow: 0 0 5px #999999;
+  z-index: 20;
+}
+
+
+header h1 {
+  font-size: 1.5em;
+  margin: 0;
+}
+
+.breadcrumb {
+  background-color: #ECECEC;
+  font-size: 0.75em;
+  text-transform: uppercase;
+}
+
+.content {
+  margin-top: 15px;
+}
+
+.devices {
+  border-left: 5px solid #03A9F4;
+  list-style: none;
+}
+
+.devices li {
+  line-height: 30px;
+}
+
+.devices .active,
+.devices .active a {
+  color: #000000;
+  font-weight: 700;
+}
+
+.devices a {
+  color: #03A9F4;
+  text-decoration: none;
+}
+
+.devices a:hover {
+  text-decoration: underline;
+}
+
+.device {
+  position: relative;
+}
+
+.device .info-box {
+  border-bottom: 1px solid #ECECEC;
+  padding-bottom: 20px;
+}
+
+.device .info-box h2 {
+  font-weight: 700;
+  margin-top: 0;
+}
+
+.device .info-box .border {
+  background-color: #FFFFFF;
+  border: 1px solid #999999;
+  padding: 5px;
+}
+
+.device .info-box img {
+  width: 100%;
+}
+
+.device .info-box .info {
+  padding: 0 20px 0 0;
+}
+
+.device table {
+  width: 100%;
+}
+
+
+.button-warning {
+  color: #FFFFFF;
+  background: rgb(202, 60, 60);
+}
+
+.button-xsmall {
+  font-size: 70%;
 }
 
 footer {
+  border-top: 1px solid #ECECEC;
   font-size: small;
+  color: #999999;
+  clear: both;
 
   margin-top: 25px;
   width: 100%;
-
-  position:absolute;
-  bottom:0;
-  left:0;
-}
-
-footer .container {
-  border-top: 1px solid #BBB;
-  padding: 25px 0;
 }
