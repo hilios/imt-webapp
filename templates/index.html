@@ -3,12 +3,12 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
+    <title>IMT - Internet das Coisas</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='//fonts.googleapis.com/css?family=Roboto:400,400italic,300,300italic' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="static/pure.css">
-    <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="/static/pure.css">
+    <link rel="stylesheet" href="/static/style.css">
   </head>
   <body>
     <div class="wrapper">
@@ -34,35 +34,36 @@
         <div class="pure-g">
           <div class="pure-u-1-3">
             <ul class="devices">
-              <li class="active">
-                <a href="#">DEF-1234</a>
+            {% for device in devices %}
+              <li {% if current_device.id == device.id %}class="active"{% endif %}>
+                <a href="/{{ device.id }}">{{ device.nome }}</a>
               </li>
-              <li>
-                <a href="#">ABC-5678</a>
-              </li>
+            {% endfor %}
             </ul>
+            {% if current_device %}
+            <a href="/" class="pure-button button-xsmall">Voltar</a>
+            {% endif %}
           </div>
           <div class="pure-u-2-3">
             <div class="device">
+            {% if current_device %}
+              {% set medidas=current_device.medidas() %}
+              {% set ultima_medida=medidas|first %}
               <div class="info-box pure-g">
                 <div class="pure-u-2-3">
                   <div class="info">
-                    <h2>DEF-1234</h2>
-                    <p>
-                      Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-                    </p>
-                    <p>
-                      <a href="#" class="pure-button-primary pure-button">Editar</a>
-                      <a href="#" class="button-warning pure-button">Apagar</a>
-                    </p>
+                    <h2>{{ current_device.nome }}</h2>
+                    <p>{{ current_device.obs|default('N/A') }}</p>
                   </div>
                 </div>
                 <div class="pure-u-1-3">
-                  <img src="//maps.googleapis.com/maps/api/staticmap?markers=size:big%7Ccolor:red%7C-23.648241,-46.573678&zoom=17&size=400x400">
+                  {% if ultima_medida %}
+                  <img src="//maps.googleapis.com/maps/api/staticmap?size=500x500&path=color:blue|weight:5{% for medida in medidas[:5] %}|{{ medida.lat }},{{ medida.lng }}{% endfor %}&markers=color:red|{{ ultima_medida.lat }},{{ ultima_medida.lng }}&markers=color:gray|size:small|{% for medida in medidas[:5] %}|{{ medida.lat }},{{ medida.lng }}{% endfor %}">
+                  {% endif %}
                 </div>
               </div>
 
-              <h3>Medidas</h3>
+              <h3>Medidas ({{ medidas|length }})</h3>
               <table class="pure-table">
                 <thead>
                   <tr>
@@ -72,16 +73,20 @@
                     <th>Posição</th>
                   </tr>
                 </thead>
-
+                {% for medida in medidas  %}
                 <tr>
-                  <td>20/02/2014</td>
-                  <td>5ºC</td>
-                  <td>20%</td>
-                  <td>
-
+                  <td>{{ medida.recebido_em }}</td>
+                  <td {% if medida.temperatura > 4 %}class="warning"{% endif %}>
+                    {{ '%0.2f' % medida.temperatura }}ºC
                   </td>
+                  <td>{{ '%0.1f' % (medida.humidade * 100) }}%</td>
+                  <td>{{ '%+.4f' % medida.lat }},{{ '%+.4f' % medida.lng }}</td>
                 </tr>
+                {% endfor %}
               </table>
+            {% else %}
+              Nenhum device selecionado.
+            {% endif %}
             </div>
           </div>
         </div>

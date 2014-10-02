@@ -60,7 +60,10 @@ fixtures = raw_input('Quer incluir dados fictícios para teste? [Sn] ')
 if re.match(r'S', fixtures, re.I):
     print 'Criando um `device`...'
 
-    device = models.Devices(nome='DEF-1234')
+    device = models.Devices(nome='DEF-1234', obs='Lorem Ipsum has been the '
+        + 'industry\'s standard dummy text ever since the 1500s, when an '
+        + 'unknown printer took a galley of type and scrambled it to make a '
+        + 'type specimen book.')
     device.save()
 
     print (''
@@ -83,8 +86,8 @@ if re.match(r'S', fixtures, re.I):
         t = random(-2, 5)
         h = random(0.0, 1.0)
         d = date.utcnow() - timedelta(random(0, -2))
-        lat = -23.648241 + random(-1, 1)
-        lng = -46.573678 + random(-1, 1)
+        lat = -23.648241 + random(-0.01, 0.01)
+        lng = -46.573678 + random(-0.01, 0.01)
 
         medida = models.Medidas(
             device_id=device.get('id'),

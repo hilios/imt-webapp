@@ -1,4 +1,5 @@
 import webapp2
+import models
 
 from api import DevicesHandler, MedidasDeviceHandler
 from static import StaticHandler
@@ -10,13 +11,16 @@ class HelloWorld(webapp2.RequestHandler):
     def jinja2(self):
         return jinja2.get_jinja2(app=self.app)
 
-    def get(self):
-        tmpl = self.jinja2.render_template('index.html')
+    def get(self, device_id=None):
+        tmpl = self.jinja2.render_template('index.html',
+            devices=models.Devices.get_all(),
+            current_device=models.Devices.get_by_id(device_id)
+        )
         self.response.write(tmpl)
 
 
 ROUTES = [
-    ('/', HelloWorld),
+    ('/(\d+)?', HelloWorld),
     ('/static/(.+)', StaticHandler),
     ('/api/devices', DevicesHandler),
     ('/api/devices/(.+)', MedidasDeviceHandler),
